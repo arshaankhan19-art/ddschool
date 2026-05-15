@@ -4,18 +4,27 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/routing/app_router.dart';
 import 'core/constants/app_constants.dart';
+import 'core/theme/app_theme.dart';
 
+/// The entry point of the ddschool application.
+/// It initializes environment variables, Supabase, and starts the Flutter app.
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  // Load environment variables
-  await dotenv.load(fileName: ".env");
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    
+    // Load environment variables (.env file must be in the assets section of pubspec.yaml)
+    await dotenv.load(fileName: AppConstants.envFileName).catchError((e) {
+      debugPrint('DotEnv load error: $e. Using default values if possible.');
+    });
 
-  // Initialize Supabase
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
-  );
+    // Initialize Supabase Client
+    await Supabase.initialize(
+      url: dotenv.env[AppConstants.supabaseUrlKey] ?? '',
+      anonKey: dotenv.env[AppConstants.supabaseAnonKey] ?? '',
+    );
+  } catch (e) {
+    debugPrint('Critical Initialization Error: $e');
+  }
 
   runApp(
     const ProviderScope(
@@ -29,25 +38,17 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the router provider to handle navigation
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
-        ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.dark,
-        ),
-      ),
+      
+      // Premium Warm Theme Configuration
+      theme: AppTheme.lightTheme,
+      
+      // GoRouter Configuration
       routerConfig: router,
     );
   }

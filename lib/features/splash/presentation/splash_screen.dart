@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/theme/app_theme.dart';
 
-class SplashScreen extends ConsumerWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: AppTheme.surfaceColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlutterLogo(size: 100),
+            Icon(
+              Icons.school_rounded,
+              size: 100,
+              color: AppTheme.primaryColor,
+            ),
             SizedBox(height: 24),
-            CircularProgressIndicator(),
+            Text(
+              'ddschool',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.accentColor,
+                letterSpacing: 2,
+              ),
+            ),
+            SizedBox(height: 48),
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+            ),
           ],
         ),
       ),

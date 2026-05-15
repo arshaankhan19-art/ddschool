@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../auth/presentation/auth_provider.dart';
+import '../../../core/widgets/base_dashboard.dart';
+import '../../../core/widgets/dashboard_card.dart';
 
-class AdminDashboard extends ConsumerWidget {
+class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Admin Dashboard'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => ref.read(authRepositoryProvider).signOut(),
-          ),
-        ],
-      ),
-      body: const Center(
-        child: Text('Welcome, Super Admin!'),
-      ),
+  Widget build(BuildContext context) {
+    return BaseDashboard(
+      title: 'Admin Panel',
+      children: [
+        DashboardCard(
+          title: 'Schools',
+          subtitle: 'Manage all schools',
+          icon: Icons.business_rounded,
+          iconColor: Colors.blue,
+          onTap: () {},
+        ),
+        DashboardCard(
+          title: 'Admins',
+          subtitle: 'School administrators',
+          icon: Icons.admin_panel_settings_rounded,
+          iconColor: Colors.orange,
+          onTap: () {},
+        ),
+        DashboardCard(
+          title: 'Subscriptions',
+          subtitle: 'Billing & Plans',
+          icon: Icons.subscriptions_rounded,
+          iconColor: Colors.purple,
+          onTap: () {},
+        ),
+        DashboardCard(
+          title: 'Global Reports',
+          subtitle: 'System analytics',
+          icon: Icons.analytics_rounded,
+          iconColor: Colors.green,
+          onTap: () {},
+        ),
+      ],
     );
   }
 }
