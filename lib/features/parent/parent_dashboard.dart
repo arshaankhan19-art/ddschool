@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ddschool/features/feed/screens/feed_home_screen.dart';
 import 'package:ddschool/features/parent/screens/parent_fees.dart';
 import 'package:ddschool/features/parent/screens/parent_notice.dart';
-import 'package:ddschool/features/profile/screens/profile_screen.dart';
+import 'package:ddschool/features/profile/screens/parent_profile_screen.dart';
+import 'package:ddschool/features/parent/screens/parent_child_screen.dart';
 
 class ParentDashboard extends StatefulWidget {
   const ParentDashboard({super.key});
@@ -16,10 +17,10 @@ class _ParentDashboardState extends State<ParentDashboard> {
 
   final List<Widget> _screens = [
     const FeedHomeScreen(),
-    const PlaceholderScreen(title: 'Child Profile'),
+    const ParentChildScreen(),
     const ParentFeesScreen(),
     const ParentNoticeScreen(),
-    const ProfileScreen(),
+    const ParentProfileScreen(),
   ];
 
   @override
@@ -50,19 +51,6 @@ class _ParentDashboardState extends State<ParentDashboard> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true),
-      body: Center(child: Text('$title Screen Coming Soon')),
     );
   }
 }

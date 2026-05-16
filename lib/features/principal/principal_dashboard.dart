@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ddschool/features/feed/screens/feed_home_screen.dart';
 import 'package:ddschool/features/principal/screens/principal_reports.dart';
+import 'package:ddschool/features/principal/screens/principal_teachers.dart';
 import 'package:ddschool/features/parent/screens/parent_notice.dart';
 import 'package:ddschool/features/profile/screens/profile_screen.dart';
 
@@ -17,7 +18,7 @@ class _PrincipalDashboardState extends State<PrincipalDashboard> {
   final List<Widget> _screens = [
     const FeedHomeScreen(),
     const PrincipalReportsScreen(), // Mapped to Analytics
-    const PlaceholderScreen(title: 'Teachers Management'),
+    const PrincipalTeachersScreen(),
     const ParentNoticeScreen(),
     const ProfileScreen(),
   ];

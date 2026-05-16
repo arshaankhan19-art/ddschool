@@ -3,7 +3,7 @@ import 'package:ddschool/features/feed/screens/feed_home_screen.dart';
 import 'package:ddschool/features/teacher/screens/teacher_attendance.dart';
 import 'package:ddschool/features/teacher/screens/teacher_homework.dart';
 import 'package:ddschool/features/teacher/screens/teacher_students.dart';
-import 'package:ddschool/features/profile/screens/profile_screen.dart';
+import 'package:ddschool/features/profile/screens/teacher_profile_screen.dart';
 
 class TeacherDashboard extends StatefulWidget {
   const TeacherDashboard({super.key});
@@ -20,7 +20,7 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
     const TeacherAttendanceScreen(),
     const TeacherHomeworkScreen(),
     const TeacherStudentsScreen(),
-    const ProfileScreen(),
+    const TeacherProfileScreen(),
   ];
 
   @override

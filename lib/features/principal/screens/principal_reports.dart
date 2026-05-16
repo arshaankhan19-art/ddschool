@@ -16,7 +16,7 @@ class PrincipalReportsScreen extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
-        childAspectRatio: 0.85,
+        childAspectRatio: 0.78,
         children: [
           _buildReportCard('Academic Performance', Icons.auto_graph_rounded, Colors.blue),
           _buildReportCard('Fee Collection', Icons.payments_rounded, Colors.green),
@@ -31,7 +31,7 @@ class PrincipalReportsScreen extends StatelessWidget {
 
   Widget _buildReportCard(String title, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
@@ -41,20 +41,24 @@ class PrincipalReportsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Icon(icon, color: color, size: 28),
           ),
-          const SizedBox(height: 20),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.textPrimary, height: 1.2),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Center(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary, height: 1.2),
+              ),
+            ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           const Text('View Details', style: TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.bold)),
         ],
       ),

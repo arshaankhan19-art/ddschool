@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ddschool/features/feed/screens/feed_home_screen.dart';
 import 'package:ddschool/features/admin/screens/admin_students.dart';
+import 'package:ddschool/features/admin/screens/admin_teachers.dart';
 import 'package:ddschool/features/admin/screens/admin_home.dart';
 import 'package:ddschool/features/profile/screens/profile_screen.dart';
 
@@ -17,7 +18,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   final List<Widget> _screens = [
     const FeedHomeScreen(),
     const AdminStudentsScreen(),
-    const PlaceholderScreen(title: 'Teachers Management'),
+    const AdminTeachersScreen(),
     const AdminHomeScreen(), // Finance/Dashboard
     const ProfileScreen(),
   ];

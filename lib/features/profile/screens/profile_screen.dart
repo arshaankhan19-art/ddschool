@@ -3,12 +3,31 @@ import 'package:ddschool/core/theme.dart';
 import 'package:ddschool/core/constants.dart';
 import 'package:ddschool/features/settings/screens/settings_screen.dart';
 
+import 'package:ddschool/features/profile/screens/parent_profile_screen.dart';
+import 'package:ddschool/features/profile/screens/teacher_profile_screen.dart';
+import 'package:ddschool/features/profile/screens/principal_profile_screen.dart';
+import 'package:ddschool/features/profile/screens/admin_profile_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final role = MockData.currentUserRole;
+    
+    if (role == UserRole.parent) {
+      return const ParentProfileScreen();
+    }
+    if (role == UserRole.teacher) {
+      return const TeacherProfileScreen();
+    }
+    if (role == UserRole.principal) {
+      return const PrincipalProfileScreen();
+    }
+    if (role == UserRole.admin || role == UserRole.superAdmin) {
+      return const AdminProfileScreen();
+    }
+
     final String name = _getName(role);
     final String roleTitle = _getRoleTitle(role);
     final String id = _getId(role);
