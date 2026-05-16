@@ -8,26 +8,33 @@ class ParentFeesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Fees')),
+      appBar: AppBar(
+        title: const Text('School Fees'),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildFeeSummary(),
-            const SizedBox(height: 24),
-            const Text('Payment History', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 32),
+            const Text(
+              'Payment History',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+            ),
             const SizedBox(height: 16),
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: MockData.fees.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemBuilder: (context, index) {
                 final fee = MockData.fees[index];
                 return _buildFeeCard(fee);
               },
             ),
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -36,38 +43,51 @@ class ParentFeesScreen extends StatelessWidget {
 
   Widget _buildFeeSummary() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      width: double.infinity,
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.primary, AppColors.accent],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          const Text('Total Outstanding', style: TextStyle(color: Colors.white70, fontSize: 16)),
+          const Text(
+            'Pending Balance',
+            style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500),
+          ),
           const SizedBox(height: 8),
-          const Text('₹12,500', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 24),
+          const Text(
+            '₹12,500',
+            style: TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold, letterSpacing: -1),
+          ),
+          const SizedBox(height: 28),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildSummaryStat('Due Date', '15 Oct'),
-              _buildSummaryStat('Status', 'Pending'),
+              _buildSummaryDetail('Due Date', '15 Oct 2023'),
+              Container(width: 1, height: 40, color: Colors.white24),
+              _buildSummaryDetail('Term', 'Quarter 3'),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           SizedBox(
             width: double.infinity,
+            height: 56,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: AppColors.primary,
+                backgroundColor: AppColors.accent,
+                foregroundColor: AppColors.textPrimary,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: const Text('Pay Now'),
+              child: const Text('PAY NOW', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
           ),
         ],
@@ -75,12 +95,13 @@ class ParentFeesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryStat(String label, String value) {
+  Widget _buildSummaryDetail(String label, String value) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: const TextStyle(color: Colors.white70, fontSize: 12)),
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 4),
+        Text(value, style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -88,23 +109,24 @@ class ParentFeesScreen extends StatelessWidget {
   Widget _buildFeeCard(Map<String, dynamic> fee) {
     final bool isPaid = fee['status'] == 'Paid';
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.divider),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFEEEEEE)),
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: (isPaid ? Colors.green : Colors.orange).withOpacity(0.1),
-              shape: BoxShape.circle,
+              color: isPaid ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3E0),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(
-              isPaid ? Icons.check_circle_outline : Icons.pending_actions,
+              isPaid ? Icons.check_circle_rounded : Icons.pending_rounded,
               color: isPaid ? Colors.green : Colors.orange,
+              size: 24,
             ),
           ),
           const SizedBox(width: 16),
@@ -112,21 +134,23 @@ class ParentFeesScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(fee['term'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(fee['date'], style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                Text(fee['term'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textPrimary)),
+                const SizedBox(height: 2),
+                Text(fee['date'], style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(fee['amount'], style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(fee['amount'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textPrimary)),
+              const SizedBox(height: 2),
               Text(
                 fee['status'],
                 style: TextStyle(
                   fontSize: 12,
                   color: isPaid ? Colors.green : Colors.orange,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

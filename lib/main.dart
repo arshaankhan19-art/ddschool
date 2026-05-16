@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ddschool/core/theme.dart';
-import 'package:ddschool/features/navigation/main_navigation.dart';
+import 'package:ddschool/features/auth/screens/sign_in_screen.dart';
 
 void main() {
   runApp(const DDSchoolApp());
@@ -15,7 +15,7 @@ class DDSchoolApp extends StatelessWidget {
       title: 'DD School',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const MainNavigation(),
+      home: const SignInScreen(),
     );
   }
 }

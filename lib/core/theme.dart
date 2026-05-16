@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  static const Color background = Color(0xFFFDFBF7);
+  static const Color primary = Color(0xFF0B6B53); // Deep emerald school green
+  static const Color accent = Color(0xFFF4B042); // Premium warm gold
+  static const Color background = Color(0xFFF8F6F1); // Soft warm white
   static const Color surface = Colors.white;
-  static const Color primary = Color(0xFFE67E22); // Soft Orange
-  static const Color secondary = Color(0xFF3E2723); // Deep Brown Typography
-  static const Color textPrimary = Color(0xFF3E2723);
-  static const Color textSecondary = Color(0xFF8D6E63);
-  static const Color accent = Color(0xFFD35400);
-  static const Color cardShadow = Color(0x1A000000);
-  static const Color divider = Color(0xFFEFEBE9);
+  static const Color textPrimary = Color(0xFF222222); // Dark charcoal
+  static const Color textSecondary = Color(0xFF666666);
+  static const Color divider = Color(0xFFE0E0E0);
+  static const Color cardShadow = Color(0x0F000000);
 }
 
 class AppTheme {
@@ -21,7 +20,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         primary: AppColors.primary,
-        secondary: AppColors.secondary,
+        secondary: AppColors.accent,
         surface: AppColors.surface,
       ),
       textTheme: GoogleFonts.poppinsTextTheme().copyWith(
@@ -57,25 +56,27 @@ class AppTheme {
         unselectedItemColor: AppColors.textSecondary,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        elevation: 10,
+        elevation: 0,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
-        elevation: 2,
+        elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
+          side: const BorderSide(color: Color(0xFFEEEEEE), width: 1),
         ),
         shadowColor: AppColors.cardShadow,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          backgroundColor: AppColors.accent,
+          foregroundColor: AppColors.textPrimary,
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+          textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
     );

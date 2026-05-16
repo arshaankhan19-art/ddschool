@@ -9,21 +9,22 @@ class PrincipalHomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               _buildOverviewStats(),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Attendance Analytics'),
-              const SizedBox(height: 12),
+              const SizedBox(height: 32),
+              _buildSectionHeader('Attendance Analytics'),
+              const SizedBox(height: 16),
               _buildAttendanceAnalytics(),
-              const SizedBox(height: 24),
-              _buildSectionTitle('Recent Activity'),
-              const SizedBox(height: 12),
+              const SizedBox(height: 32),
+              _buildSectionHeader('Recent Activity'),
+              const SizedBox(height: 16),
               _buildRecentActivity(),
+              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -32,20 +33,24 @@ class PrincipalHomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Welcome,', style: TextStyle(color: AppColors.textSecondary, fontSize: 16)),
-            Text('Dr. Verma', style: TextStyle(color: AppColors.textPrimary, fontSize: 24, fontWeight: FontWeight.bold)),
+            Text('Welcome,', style: TextStyle(color: AppColors.textSecondary, fontSize: 16, fontWeight: FontWeight.w500)),
+            Text('Dr. Verma', style: TextStyle(color: AppColors.textPrimary, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: -0.5)),
           ],
         ),
-        CircleAvatar(
-          radius: 25,
-          backgroundColor: AppColors.divider,
-          child: Icon(Icons.admin_panel_settings, color: AppColors.primary),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0xFFEEEEEE)),
+          ),
+          child: const Icon(Icons.admin_panel_settings_rounded, color: AppColors.primary, size: 24),
         ),
       ],
     );
@@ -56,71 +61,72 @@ class PrincipalHomeScreen extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
-      childAspectRatio: 1.5,
+      childAspectRatio: 1.3,
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       children: [
-        _buildStatCard('Total Students', '1,240', Icons.people, Colors.blue),
-        _buildStatCard('Total Teachers', '84', Icons.school, Colors.orange),
-        _buildStatCard('Avg Attendance', '94%', Icons.show_chart, Colors.green),
-        _buildStatCard('Pending Fees', '₹4.2L', Icons.account_balance_wallet, Colors.red),
+        _buildStatCard('Total Students', '1,240', Icons.people_rounded, Colors.blue),
+        _buildStatCard('Total Teachers', '84', Icons.school_rounded, AppColors.primary),
+        _buildStatCard('Avg Attendance', '94%', Icons.show_chart_rounded, Colors.green),
+        _buildStatCard('Pending Fees', '₹4.2L', Icons.account_balance_wallet_rounded, Colors.redAccent),
       ],
     );
   }
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFEEEEEE)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(height: 8),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          Text(title, style: const TextStyle(color: AppColors.textSecondary, fontSize: 11)),
+          Icon(icon, color: color, size: 22),
+          const SizedBox(height: 12),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.textPrimary)),
+          const SizedBox(height: 2),
+          Text(title, style: const TextStyle(color: AppColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w600)),
         ],
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionHeader(String title) {
     return Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary));
   }
 
   Widget _buildAttendanceAnalytics() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.divider),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: const Color(0xFFEEEEEE)),
       ),
       child: Column(
         children: [
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Daily Presence', style: TextStyle(fontWeight: FontWeight.bold)),
-              Icon(Icons.more_horiz),
+              Text('Weekly Presence', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: AppColors.textPrimary)),
+              Icon(Icons.more_horiz_rounded, color: AppColors.textSecondary),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              _buildBar(40, 'Mon'),
-              _buildBar(60, 'Tue'),
-              _buildBar(80, 'Wed'),
-              _buildBar(70, 'Thu'),
-              _buildBar(90, 'Fri'),
-              _buildBar(30, 'Sat'),
+              _buildBar(40, 'M'),
+              _buildBar(60, 'T'),
+              _buildBar(85, 'W'),
+              _buildBar(70, 'T'),
+              _buildBar(95, 'F'),
+              _buildBar(30, 'S'),
             ],
           ),
         ],
@@ -132,15 +138,15 @@ class PrincipalHomeScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 30,
+          width: 14,
           height: height,
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
-        const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+        const SizedBox(height: 10),
+        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -155,24 +161,28 @@ class PrincipalHomeScreen extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.divider),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: const Color(0xFFEEEEEE)),
           ),
           child: Row(
             children: [
-              const CircleAvatar(backgroundColor: AppColors.divider, child: Icon(Icons.notifications_active, size: 18, color: AppColors.primary)),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: AppColors.accent.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                child: const Icon(Icons.notifications_active_rounded, size: 20, color: AppColors.textPrimary),
+              ),
               const SizedBox(width: 16),
               const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('New Notice Published', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Text('Regarding Mid-term results declaration', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                    Text('New Notice Published', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.textPrimary)),
+                    Text('Mid-term results declaration', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                   ],
                 ),
               ),
-              Text('2h ago', style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+              Text('2h ago', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
             ],
           ),
         );

@@ -19,9 +19,10 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mark Attendance'),
+        title: const Text('Attendance'),
+        centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.history)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.history_rounded)),
         ],
       ),
       body: Column(
@@ -29,24 +30,37 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
           _buildClassHeader(),
           Expanded(
             child: ListView.separated(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               itemCount: _students.length,
-              separatorBuilder: (context, index) => const Divider(height: 1, color: AppColors.divider),
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final student = _students[index];
-                return ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primary.withOpacity(0.1),
-                    child: Text(student['rollNo'], style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: const Color(0xFFEEEEEE)),
                   ),
-                  title: Text(student['name'], style: const TextStyle(fontWeight: FontWeight.w600)),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Row(
                     children: [
-                      _buildStatusButton(index, true, 'P'),
-                      const SizedBox(width: 8),
-                      _buildStatusButton(index, false, 'A'),
+                      CircleAvatar(
+                        radius: 22,
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
+                        child: Text(student['rollNo'].substring(1), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text(student['name'], style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildStatusButton(index, true, 'P'),
+                          const SizedBox(width: 8),
+                          _buildStatusButton(index, false, 'A'),
+                        ],
+                      ),
                     ],
                   ),
                 );
@@ -61,22 +75,27 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
 
   Widget _buildClassHeader() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      color: AppColors.surface,
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.primary.withOpacity(0.1)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Class 8 - Section A', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              Text('Total Students: 15', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+              const Text('Class 8 - Section A', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textPrimary)),
+              Text('Total Students: ${_students.length}', style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
             ],
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(color: AppColors.divider, borderRadius: BorderRadius.circular(8)),
-            child: const Text('12 Oct 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+            child: const Text('12 Oct 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.primary)),
           ),
         ],
       ),
@@ -85,17 +104,17 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
 
   Widget _buildStatusButton(int index, bool isPresent, String label) {
     bool selected = _students[index]['isPresent'] == isPresent;
-    Color color = isPresent ? Colors.green : Colors.red;
+    Color color = isPresent ? const Color(0xFF4CAF50) : const Color(0xFFE57373);
     
     return GestureDetector(
       onTap: () => setState(() => _students[index]['isPresent'] = isPresent),
       child: Container(
-        width: 36,
-        height: 36,
+        width: 40,
+        height: 40,
         decoration: BoxDecoration(
-          color: selected ? color : Colors.transparent,
-          border: Border.all(color: selected ? color : AppColors.divider),
-          shape: BoxShape.circle,
+          color: selected ? color : Colors.white,
+          border: Border.all(color: selected ? color : const Color(0xFFEEEEEE)),
+          borderRadius: BorderRadius.circular(12),
         ),
         alignment: Alignment.center,
         child: Text(
@@ -113,14 +132,16 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
-        color: AppColors.surface,
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2))],
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Color(0xFFEEEEEE))),
       ),
       child: SizedBox(
         width: double.infinity,
+        height: 56,
         child: ElevatedButton(
           onPressed: () {},
-          child: const Text('Submit Attendance'),
+          style: ElevatedButton.styleFrom(backgroundColor: AppColors.accent),
+          child: const Text('SUBMIT ATTENDANCE', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         ),
       ),
     );

@@ -21,6 +21,7 @@ class MainNavigation extends StatelessWidget {
         return const StudentDashboard();
       case UserRole.principal:
         return const PrincipalDashboard();
+      case UserRole.admin:
       case UserRole.superAdmin:
         return const AdminDashboard();
       default:

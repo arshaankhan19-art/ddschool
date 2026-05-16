@@ -8,26 +8,29 @@ class ParentHomeworkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Homework')),
+      appBar: AppBar(
+        title: const Text('Homework'),
+        centerTitle: true,
+      ),
       body: ListView.separated(
         padding: const EdgeInsets.all(20),
         itemCount: MockData.homework.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        separatorBuilder: (context, index) => const SizedBox(height: 20),
         itemBuilder: (context, index) {
           final item = MockData.homework[index];
           final bool isPending = item['status'] == 'Pending';
           
           return Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.divider),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+              border: Border.all(color: const Color(0xFFEEEEEE)),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.cardShadow.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
@@ -41,7 +44,7 @@ class ParentHomeworkScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         item['subject'],
@@ -54,51 +57,52 @@ class ParentHomeworkScreen extends StatelessWidget {
                     ),
                     Text(
                       item['date'],
-                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 Text(
                   item['description'],
                   style: const TextStyle(
                     fontSize: 15,
                     color: AppColors.textPrimary,
                     height: 1.5,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         Icon(
-                          isPending ? Icons.pending_outlined : Icons.check_circle_outline,
-                          size: 18,
-                          color: isPending ? Colors.orange : Colors.green,
+                          isPending ? Icons.pending_actions_rounded : Icons.check_circle_rounded,
+                          size: 20,
+                          color: isPending ? Colors.orange : AppColors.primary,
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(width: 8),
                         Text(
                           item['status'],
                           style: TextStyle(
-                            color: isPending ? Colors.orange : Colors.green,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
+                            color: isPending ? Colors.orange : AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
                           ),
                         ),
                       ],
                     ),
                     if (isPending)
-                      TextButton.icon(
+                      ElevatedButton.icon(
                         onPressed: () {},
-                        icon: const Icon(Icons.attach_file, size: 16),
-                        label: const Text('Upload Solution'),
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.primary,
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        icon: const Icon(Icons.upload_file_rounded, size: 16),
+                        label: const Text('SUBMIT', style: TextStyle(fontSize: 12)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.accent,
+                          foregroundColor: AppColors.textPrimary,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                       ),
                   ],

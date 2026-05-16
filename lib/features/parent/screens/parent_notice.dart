@@ -8,60 +8,72 @@ class ParentNoticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notices')),
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Circulars & Notices'),
+        centerTitle: true,
+      ),
       body: ListView.separated(
         padding: const EdgeInsets.all(20),
         itemCount: MockData.notices.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        separatorBuilder: (context, index) => const SizedBox(height: 20),
         itemBuilder: (context, index) {
           final notice = MockData.notices[index];
           return Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.divider),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: const Color(0xFFEEEEEE)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Top Row: Category Badge & Posted Date
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _buildNoticeTag(notice['type']),
                     Text(
                       notice['date'],
-                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                      style: TextStyle(
+                        color: AppColors.textSecondary.withOpacity(0.7),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 18),
+                // Middle: Notice Title
                 Text(
                   notice['title'],
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
+                    letterSpacing: -0.5,
+                    height: 1.2,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
+                // Bottom: Full Description Text
                 Text(
                   notice['content'],
                   style: const TextStyle(
                     fontSize: 14,
                     color: AppColors.textSecondary,
-                    height: 1.5,
+                    height: 1.6,
+                    fontWeight: FontWeight.w400,
                   ),
-                ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: Size.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: const Text('Read More', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -75,27 +87,41 @@ class ParentNoticeScreen extends StatelessWidget {
     Color color;
     switch (type) {
       case 'Holiday':
+        color = Colors.redAccent;
+        break;
+      case 'Urgent':
         color = Colors.red;
         break;
-      case 'Event':
-        color = Colors.blue;
-        break;
       case 'Exam':
-        color = Colors.orange;
+        color = Colors.orangeAccent;
+        break;
+      case 'Event':
+        color = Colors.blueAccent;
+        break;
+      case 'Circular':
+        color = AppColors.primary;
+        break;
+      case 'Homework':
+        color = Colors.amber.shade700;
         break;
       default:
         color = AppColors.primary;
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Text(
-        type,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold),
+        type.toUpperCase(),
+        style: TextStyle(
+          color: color,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0.8,
+        ),
       ),
     );
   }
